@@ -13,19 +13,23 @@ import java.util.List;
 import java.util.Random;
 import java.awt.Color;
 
-
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 public class Operador {
 
   private List<Aposta> apostasRealizadas;
   private List<Pessoa> listaPessoas;
   Sorteio sorteio;
+  Pessoa pessoa;
 
   public Operador() {
     this.apostasRealizadas = new ArrayList<>();
     this.listaPessoas = new ArrayList<>();
     sorteio = new Sorteio(this);
+    pessoa = new Pessoa(null, null);
   }
 
   public List<Aposta> getApostasRealizadas() {
@@ -38,12 +42,13 @@ public class Operador {
 
   public String[] listarPessoas() {
     String[] listaNomes = new String[listaPessoas.size()];
-    for(int i = 0; i < listaPessoas.size(); i++) {
+    for (int i = 0; i < listaPessoas.size(); i++) {
       listaNomes[i] = listaPessoas.get(i).getNome();
     }
     return listaNomes;
 
   }
+
   public void adicionarPessoa(Pessoa p) {
     listaPessoas.add(p);
   }
@@ -72,7 +77,6 @@ public class Operador {
     return false;
   }
 
-
   public void listarApostas() {
     for (Aposta apostas : apostasRealizadas) {
       System.out.println(apostas.toString());
@@ -89,9 +93,9 @@ public class Operador {
   }
 
   public void setZerado(JButton botoes) {
-      botoes.setSelected(false);
-      botoes.setEnabled(true);
-      botoes.setBackground(null);
+    botoes.setSelected(false);
+    botoes.setEnabled(true);
+    botoes.setBackground(null);
   }
 
   public boolean adicionarValorArray(JButton botao, int[] numerosApostados) {
@@ -101,9 +105,9 @@ public class Operador {
 
     // Encontra a primeira posição vazia no array e insere o valor
     for (int i = 0; i < numerosApostados.length; i++) {
-      if (numerosApostados[i] == 0) { 
-          numerosApostados[i] = valorCerto;
-          return true; 
+      if (numerosApostados[i] == 0) {
+        numerosApostados[i] = valorCerto;
+        return true;
       }
     }
     return false;
@@ -111,10 +115,28 @@ public class Operador {
 
   public boolean verificarSeVetorEstaCheio(int[] numerosApostados) {
     for (int numero : numerosApostados) {
-        if (numero == 0) {
-            return false; 
-        }
+      if (numero == 0) {
+        return false;
+      }
     }
-    return true; 
-}
+    return true;
+  }
+
+  public void centralizarConteudoTabela(JTable jTable) {
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+    renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+    TableColumnModel columnModel = jTable.getColumnModel();
+    int columns = columnModel.getColumnCount();
+
+    for (int i = 0; i < columns; i++) {
+      columnModel.getColumn(i).setCellRenderer(renderer);
+    }
+  }
+
+  public void adicionarApostasArray(Aposta aposta) {
+    apostasRealizadas.add(aposta);
+  }
+
+ 
 }

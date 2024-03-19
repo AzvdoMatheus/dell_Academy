@@ -35,9 +35,16 @@ public class Pessoa {
     apostasFeitas.add(aposta);
 }
 
-  public List<Aposta> getApostaFeitas() {
-    return apostasFeitas;
+
+public List<Aposta> getApostasFeitas(Pessoa pessoa) {
+  List<Aposta> apostas = new ArrayList<>();
+  for (Aposta aposta : apostasFeitas) {
+      if (aposta.getPessoaApostador().equals(pessoa)) {
+          apostas.add(aposta);
+      }
   }
+  return apostas;
+}
 
   @Override
   public String toString() {

@@ -24,8 +24,26 @@ public class Aposta {
   }
 
   public int getregistro() {
-    return registro;
+    return registroFinal;
   }
+
+
+    public int[] getNumerosApostados() {
+        // Imprime os números apostados na tela
+        System.out.print("Números Apostados: ");
+        for (int i = 0; i < numerosApostados.length; i++) {
+            System.out.print(numerosApostados[i]);
+            // Adiciona vírgula e espaço se não for o último número da aposta
+            if (i < numerosApostados.length - 1) {
+                System.out.print(", ");
+            }
+        }
+
+
+        // Retorna o array de inteiros contendo os números apostados
+        return numerosApostados;
+    }
+
 
   public String getNumerosApostados(Pessoa p) {
     StringBuilder vetor = new StringBuilder();
